@@ -111,7 +111,7 @@ $izins = $izin->tampilData();
 
 ![image](https://github.com/user-attachments/assets/d0eb6c0e-d70f-4c05-b40e-7bf20a3bcf8a)
 
-<h2><i>Extends dari table surat tugas (Transportasi)</i></h2>
+<h2><i>Penjelasan Extends dari table surat tugas (Transportasi)</i></h2>
 <p>
 
 - kelas Transportasi yang mewarisi dari kelas Database. Pada konstruktor __construct(), konstruktor induk dipanggil untuk menginisialisasi koneksi database. Metode proses() berfungsi untuk mengeksekusi query SQL yang memilih semua data dari tabel surat_tugas di mana kolom Transportasi bernilai 'Motor', mengembalikan hasilnya sebagai objek. Sementara itu, metode tampilData() memanggil metode proses() dan mengembalikan hasilnya, memberikan cara untuk mengakses data tanpa harus langsung memanggil metode proses() di luar kelas. Saat objek Transportasi diinstansiasi, koneksi database diinisialisasi, dan ketika $datas = $transportasi->proses(); dipanggil, metode proses() dieksekusi untuk mengambil data sesuai kriteria, dengan hasil yang disimpan dalam variabel $datas. Struktur ini menciptakan cara yang terorganisir untuk mengambil data dari database,
@@ -146,6 +146,42 @@ $datas = $transportasi->proses();
 <h2>Tampilan Output Extend dari tabel surat_tugas (Transportasi)</h2>
 
 ![image](https://github.com/user-attachments/assets/757b92ef-ad38-496a-ae1a-28466737afea)
+
+<h2><i>Penjelasan Extends dari table permohonan izin (Jabatan)</i></h2>
+<p>
+
+- Kelas Jabatan merupakan bagian dari sistem manajemen data yang fokus pada pengambilan informasi jabatan dalam permohonan izin dan mewarisi fitur koneksi database dari kelas Database. Ketika objek dari kelas Jabatan dibuat, konstruktor __construct() memastikan koneksi ke database berhasil. Metode proses() menjalankan query SQL untuk mengambil semua data dari tabel permohonan_izin di mana jabatan bernilai 'Direktur', dan hasilnya dikembalikan dalam bentuk objek. Sementara itu, metode tampilData() memberikan cara yang lebih intuitif untuk mengakses data dengan memanggil proses(). Saat objek diinstansiasi dan metode proses() dipanggil, data relevan disimpan dalam variabel $datas. Dengan struktur ini, kelas Jabatan memanfaatkan prinsip OOP seperti pewarisan dan enkapsulasi, mengurangi duplikasi kode, serta meningkatkan kejelasan dan keterbacaan, yang penting untuk pemeliharaan dan pengembangan perangkat lunak di masa depan.
+  
+</p>
+
+```sh
+class Jabatan extends Database{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function proses(){
+        $sql = "SELECT * FROM permohonan_izin WHERE jabatan = 'Direktur'";
+
+        return $this->conn->query($sql);
+    }
+    
+    public function tampilData()
+    {
+        return $this->proses();
+    }
+}
+$jabatan = new Jabatan();
+
+$datas = $jabatan->proses();
+```
+
+<h2>Hasil Tampilan Output dari Extend permohonan izin (Jabatan) </h2>
+
+![image](https://github.com/user-attachments/assets/5d381835-b20c-45c0-b99d-f4f8e9e33c07)
+
 
 
 
