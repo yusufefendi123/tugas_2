@@ -111,5 +111,42 @@ $izins = $izin->tampilData();
 
 ![image](https://github.com/user-attachments/assets/d0eb6c0e-d70f-4c05-b40e-7bf20a3bcf8a)
 
+<h2><i>Extends dari table surat tugas (Transportasi)</i></h2>
+<p>
+
+- kelas Transportasi yang mewarisi dari kelas Database. Pada konstruktor __construct(), konstruktor induk dipanggil untuk menginisialisasi koneksi database. Metode proses() berfungsi untuk mengeksekusi query SQL yang memilih semua data dari tabel surat_tugas di mana kolom Transportasi bernilai 'Motor', mengembalikan hasilnya sebagai objek. Sementara itu, metode tampilData() memanggil metode proses() dan mengembalikan hasilnya, memberikan cara untuk mengakses data tanpa harus langsung memanggil metode proses() di luar kelas. Saat objek Transportasi diinstansiasi, koneksi database diinisialisasi, dan ketika $datas = $transportasi->proses(); dipanggil, metode proses() dieksekusi untuk mengambil data sesuai kriteria, dengan hasil yang disimpan dalam variabel $datas. Struktur ini menciptakan cara yang terorganisir untuk mengambil data dari database,
+  
+</p>
+
+```sh
+include "koneksi.php";
+
+class Transportasi extends Database {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function proses(){
+        $sql = "SELECT * FROM surat_tugas WHERE Transportasi = 'Motor'";
+
+        return $this->conn->query($sql);
+    }
+    public function tampilData()
+    {
+        return $this->proses();
+    }
+}
+$transportasi = new Transportasi();
+
+$datas = $transportasi->proses();
+```
+
+<h2>Tampilan Output Extend dari tabel surat_tugas (Transportasi)</h2>
+
+![image](https://github.com/user-attachments/assets/757b92ef-ad38-496a-ae1a-28466737afea)
+
+
 
 
